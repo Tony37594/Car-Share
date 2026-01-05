@@ -23,31 +23,38 @@ def load_bookings():
 try:
     df = load_bookings()
     
-    # Format the data for the Calendar component
     calendar_events = []
-    for _, row in df.iterrows():
-        calendar_events.append({
-            "title": f"🚗 {row['name']}",
-            "start": str(row['start date']),
-            "end": str(row['end date']),
-            "notes": str(row['notes'])
-        })
+    
+    # This part finds the right columns even if Google moved them
+    cols = {col.lower().strip(): col for col in df.columns}
+    
+    # We look for the most likely names Google Forms gave your columns
+    name_key = next((v for k, v in cols.items() if 'name' in k), None)
+    start_key = next((v for k, v in cols.items() if 'start' in k), None)
+    end_key = next((v for k, v in cols.items() if 'end' in k), None)
 
-    calendar_options = {
-        "headerToolbar": {
-            "left": "today prev,next",
-            "center": "title",
-            "right": "dayGridMonth,listMonth",
-        },
-        "initialView": "dayGridMonth",
-    }
-
-    # Display the Calendar
-    calendar(events=calendar_events, options=calendar_options)
-
-    st.divider()
-    st.info("To add a booking, simply add a row to the 'bookings' tab in your Google Sheet.")
+    if name_key and start_key and end_key:
+        for _, row in df.iterrows():
+            # Only add to calendar if the row isn't empty
+            if pd.notnull(row[name_key]):
+                calendar_events.append({
+                    "title": f"🚗 {row[name_key]}",
+                    "start": str(row[start_key]),
+                    "end": str(row[end_key]),
+                })
+        
+        calendar_options = {
+            "headerToolbar": {
+                "left": "today prev,next",
+                "center": "title",
+                "right": "dayGridMonth,listMonth",
+            },
+            "initialView": "dayGridMonth",
+        }
+        calendar(events=calendar_events, options=calendar_options)
+    else:
+        st.warning("Could not find 'Name', 'Start', or 'End' columns in the sheet.")
 
 except Exception as e:
-    st.error("Make sure your 'bookings' tab exists and has 'Start Date', 'End Date', and 'Name' columns.")
+    st.error("The calendar is having trouble reading the form data.")
     st.write(e)
