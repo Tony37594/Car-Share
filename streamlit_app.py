@@ -5,7 +5,7 @@ st.set_page_config(page_title="AKL Car Share", page_icon="🚗")
 
 # --- CONFIGURE YOUR SHEET HERE ---
 # Paste your ID between the quotes below
-SHEET_ID = "https://docs.google.com/spreadsheets/d/1Se6lXZLpgIarI_z4OXhHXgDdruDzjDYlwEhSg9LUYI8/edit?usp=sharing"
+SHEET_ID = "1Se6lXZLpgIarI_z4OXhHXgDdruDzjDYlwEhSg9LUYI8"
 SHEET_NAME = "log" # Ensure your tab in Google Sheets is named 'log'
 # ---------------------------------
 
