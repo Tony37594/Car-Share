@@ -5,7 +5,7 @@ from streamlit_calendar import calendar
 st.set_page_config(page_title="Car Calendar", page_icon="📅")
 
 # --- CONFIG ---
-SHEET_ID = "YOUR_ACTUAL_ID_HERE" # Use the same ID as your main page
+SHEET_ID = "1Se6lXZLpgIarI_z4OXhHXgDdruDzjDYlwEhSg9LUYI8" # Use the same ID as your main page
 SHEET_NAME = "bookings"
 url = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME}"
 
