@@ -35,26 +35,23 @@ try:
 
     if name_key and start_key and end_key:
         for _, row in df.iterrows():
-            # Only add to calendar if the row isn't empty
-            if pd.notnull(row[name_key]):
-                calendar_events.append({
-                    "title": f"🚗 {row[name_key]}",
-                    "start": str(row[start_key]),
-                    "end": str(row[end_key]),
-                })
-        
-        calendar_options = {
-            "headerToolbar": {
-                "left": "today prev,next",
-                "center": "title",
-                "right": "dayGridMonth,listMonth",
-            },
-            "initialView": "dayGridMonth",
-        }
-        calendar(events=calendar_events, options=calendar_options)
-    else:
-        st.warning("Could not find 'Name', 'Start', or 'End' columns in the sheet.")
+            if pd.notnull(row[name_key]) and pd.notnull(row[start_key]):
+                try:
+                    # 'dayfirst=True' tells Python to prioritize the NZ format (DD/MM)
+                    # but it's smart enough to fallback if the month is first
+                    start_dt = pd.to_datetime(row[start_key], dayfirst=True)
+                    end_dt = pd.to_datetime(row[end_key], dayfirst=True)
+                    
+                    # If the user put the same day for start and end, 
+                    # we add 1 day so it actually shows up as a block on the calendar
+                    if start_dt == end_dt:
+                        end_dt = end_dt + pd.Timedelta(days=1)
 
-except Exception as e:
-    st.error("The calendar is having trouble reading the form data.")
-    st.write(e)
+                    calendar_events.append({
+                        "title": f"🚗 {row[name_key]}",
+                        "start": start_dt.strftime('%Y-%m-%d'),
+                        "end": end_dt.strftime('%Y-%m-%d'),
+                    })
+                except Exception as e:
+                    print(f"Date error: {e}")
+                    continue
