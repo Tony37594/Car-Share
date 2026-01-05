@@ -10,7 +10,11 @@ SHEET_NAME = "bookings"
 url = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME}"
 
 st.title("📅 Booking Calendar")
+# Replace with your actual Google Form link
+FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeLwzlfbmjG80888ZcoDjkGF-kIQmkINQGpdr2a6ckc6KSTXA/viewform?usp=header"
 
+st.link_button("➕ Click Here to Book the Car", FORM_URL, use_container_width=True)
+st.divider()
 def load_bookings():
     df = pd.read_csv(url)
     df.columns = df.columns.str.strip().str.lower()
