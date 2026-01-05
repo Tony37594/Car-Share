@@ -1,0 +1,49 @@
+import streamlit as st
+import pandas as pd
+from streamlit_calendar import calendar
+
+st.set_page_config(page_title="Car Calendar", page_icon="📅")
+
+# --- CONFIG ---
+SHEET_ID = "YOUR_ACTUAL_ID_HERE" # Use the same ID as your main page
+SHEET_NAME = "bookings"
+url = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME}"
+
+st.title("📅 Booking Calendar")
+
+def load_bookings():
+    df = pd.read_csv(url)
+    df.columns = df.columns.str.strip().str.lower()
+    return df
+
+try:
+    df = load_bookings()
+    
+    # Format the data for the Calendar component
+    calendar_events = []
+    for _, row in df.iterrows():
+        calendar_events.append({
+            "title": f"🚗 {row['name']}",
+            "start": str(row['start date']),
+            "end": str(row['end date']),
+            "notes": str(row['notes'])
+        })
+
+    calendar_options = {
+        "headerToolbar": {
+            "left": "today prev,next",
+            "center": "title",
+            "right": "dayGridMonth,listMonth",
+        },
+        "initialView": "dayGridMonth",
+    }
+
+    # Display the Calendar
+    calendar(events=calendar_events, options=calendar_options)
+
+    st.divider()
+    st.info("To add a booking, simply add a row to the 'bookings' tab in your Google Sheet.")
+
+except Exception as e:
+    st.error("Make sure your 'bookings' tab exists and has 'Start Date', 'End Date', and 'Name' columns.")
+    st.write(e)
