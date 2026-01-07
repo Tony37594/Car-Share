@@ -74,7 +74,7 @@ try:
     # --- COLOR MAPPING ---
     color_map = {
         "Tony": "#2196F3", 
-        "Sue": "#4CAF50",
+        "Sue": "#B66DFF",
         "Grant": "#FF9800",
         "Paid": "#E91E63"
     }
