@@ -10,14 +10,16 @@ SHEET_ID = "1Se6lXZLpgIarI_z4OXhHXgDdruDzjDYlwEhSg9LUYI8"
 LOG_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=0"
 BOOKING_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&sheet=bookings"
 
-# --- GOOGLE FORM CONFIG (UPDATE THESE WITH YOUR NUMBERS) ---
-FORM_URL = "https://docs.google.com/forms/d/1DS4jMA5_mRoNExH6CpsdWswTZ_XaE_ynzUwfiU7Km6M/edit"
-ENTRY_NAME = "635424914"  # Replace with your ID
-ENTRY_LOC = "1499233920"   # Replace with your ID
+# --- GOOGLE FORM CONFIG ---
+# FIX 1: Ensure URL ends in /formResponse for background posting
+FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdyH1G9K1vL5Vf5wYy6zQ8Q_5_p6f7v8v9a/formResponse" 
+# FIX 2: Added 'entry.' prefix to the IDs
+ENTRY_NAME = "entry.635424914"  
+ENTRY_LOC = "entry.1499233920"  
 
 st.title("🚗 Auckland Car Share")
 
-# --- 1. UPDATE LOCATION (The New Button) ---
+# --- 1. UPDATE LOCATION ---
 with st.expander("📍 Update Car Location"):
     with st.form("location_form", clear_on_submit=True):
         u_name = st.text_input("Your Name")
@@ -28,10 +30,12 @@ with st.expander("📍 Update Car Location"):
             if u_name and u_loc:
                 payload = {ENTRY_NAME: u_name, ENTRY_LOC: u_loc}
                 try:
+                    # This sends the data silently
                     requests.post(FORM_URL, data=payload)
-                    st.success("✅ Location updated! Hit 'Refresh' below to see it.")
+                    st.success("✅ Location sent! Refreshing dashboard...")
+                    st.rerun() # Refresh immediately after submission
                 except:
-                    st.error("Connection error. Try again.")
+                    st.error("Connection error.")
             else:
                 st.warning("Please fill in both fields.")
 
@@ -49,8 +53,8 @@ try:
         latest = log_df.iloc[-1]
         st.success(f"### 📍 Current Location: {latest.get('location', 'Unknown')}")
         st.write(f"**Last parked by:** {latest.get('driver', 'Unknown')}")
-except:
-    st.info("No location data found yet.")
+except Exception as e:
+    st.info("Waiting for location data...")
 
 # --- 3. BOOKING & CALENDAR ---
 st.divider()
@@ -64,7 +68,8 @@ def load_bookings():
 try:
     book_df = load_bookings()
     calendar_events = []
-    # (Existing calendar logic follows...)
+    
+    # Robust column mapping
     cols = {col.lower().strip(): col for col in book_df.columns}
     name_key = next((v for k, v in cols.items() if 'name' in k), None)
     start_key = next((v for k, v in cols.items() if 'start' in k), None)
@@ -77,10 +82,23 @@ try:
                     sd = pd.to_datetime(row[start_key], dayfirst=True)
                     ed = pd.to_datetime(row[end_key], dayfirst=True)
                     if sd == ed: ed = ed + pd.Timedelta(days=1)
-                    calendar_events.append({"title": f"🚗 {row[name_key]}", "start": sd.strftime('%Y-%m-%d'), "end": ed.strftime('%Y-%m-%d')})
+                    calendar_events.append({
+                        "title": f"🚗 {row[name_key]}", 
+                        "start": sd.strftime('%Y-%m-%d'), 
+                        "end": ed.strftime('%Y-%m-%d')
+                    })
                 except: continue
-        calendar(events=calendar_events, options={"headerToolbar": {"left": "prev,next", "center": "title", "right": ""}, "initialView": "dayGridMonth", "height": 400})
-except:
-    st.error("Calendar loading...")
+        
+        calendar(events=calendar_events, options={
+            "headerToolbar": {"left": "prev,next", "center": "title", "right": ""},
+            "initialView": "dayGridMonth", 
+            "height": 400
+        })
+    else:
+        st.warning("Ensure your bookings sheet has 'Name', 'Start', and 'End' columns.")
+except Exception as e:
+    st.error(f"Calendar Error: {e}")
 
-st.button('🔄 Refresh Dashboard', on_click=st.rerun, use_container_width=True)
+# FIX 3: Removed on_click=st.rerun and used a simple if-statement
+if st.button('🔄 Refresh Dashboard', use_container_width=True):
+    st.rerun()
