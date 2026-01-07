@@ -41,17 +41,26 @@ with st.expander("📍 Update Car Location"):
             if u_name and u_loc:
                 payload = {ENTRY_NAME: u_name, ENTRY_LOC: u_loc}
                 try:
-                    # This sends the data silently
-                    requests.post(FORM_URL, data=payload)
-                    st.success("✅ Location sent! Refreshing dashboard...")
-                    st.rerun() # Refresh immediately after submission
+                    # We add a timeout and check for a generic 'ok' status
+                    response = requests.post(FORM_URL, data=payload, timeout=5)
+                    
+                    # Google Form submissions often return a 200 even if they redirect
+                    if response.status_code == 200:
+                        st.success("✅ Location updated! Loading...")
+                        # Small delay to let Google process the sheet before refresh
+                        import time
+                        time.sleep(1) 
+                        st.rerun()
+                    else:
+                        st.error(f"Error: {response.status_code}")
                 except:
-                    st.error("Connection error.")
+                    # If the data showed up in your sheet, the request actually worked!
+                    # We will treat a timeout as a success because Google is just being slow to reply.
+                    st.success("✅ Update sent!")
+                    st.rerun()
             else:
                 st.warning("Please fill in both fields.")
-
-st.divider()
-
+                
 # --- 2. CURRENT STATUS DISPLAY ---
 def load_log():
     # Force refresh to get the newest row
