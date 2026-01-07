@@ -128,7 +128,41 @@ try:
         st.warning("Ensure your bookings sheet has 'Name', 'Start', and 'End' columns.")
 except Exception as e:
     st.error(f"Calendar Error: {e}")
-
+    
+# --- 4. CANCEL BOOKING SECTION ---
+st.divider()
+with st.expander("🗑️ Cancel a Booking"):
+    # We need a fresh look at the bookings
+    try:
+        cancel_df = load_bookings()
+        # Create a list of "Name on Date" for the dropdown
+        if not cancel_df.empty:
+            # Assumes Column 0 is Name and Column 1 is Start Date
+            cancel_df['display'] = cancel_df.iloc[:, 0] + " (" + cancel_df.iloc[:, 1].astype(str) + ")"
+            booking_to_delete = st.selectbox("Select booking to remove:", cancel_df['display'])
+            
+            if st.button("Confirm Cancellation"):
+                # Get the raw name and date from the selection
+                selected_row = cancel_df[cancel_df['display'] == booking_to_delete].iloc[0]
+                target_name = selected_row.iloc[0]
+                target_date = selected_row.iloc[1]
+                
+                # YOUR APPS SCRIPT URL HERE
+                DELETE_SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE"
+                
+                params = {"name": target_name, "date": target_date}
+                res = requests.get(DELETE_SCRIPT_URL, params=params)
+                
+                if res.text == "Success":
+                    st.success("Deleted! Refreshing...")
+                    st.rerun()
+                else:
+                    st.error("Could not find that booking in the sheet.")
+        else:
+            st.write("No bookings to cancel.")
+    except:
+        st.write("Could not load bookings for cancellation.")
+        
 # FIX 3: Removed on_click=st.rerun and used a simple if-statement
 if st.button('🔄 Refresh Dashboard', use_container_width=True):
     st.rerun()
