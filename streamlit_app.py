@@ -12,7 +12,7 @@ BOOKING_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=
 
 # --- GOOGLE FORM CONFIG ---
 # FIX 1: Ensure URL ends in /formResponse for background posting
-FORM_URL = "https://docs.google.com/spreadsheets/d/1Se6lXZLpgIarI_z4OXhHXgDdruDzjDYlwEhSg9LUYI8/edit?pli=1&gid=0#gid=0" 
+FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScnZpz2nSmLWwjdxfGKruOJ2oOVlr9SZ-KOa6H0P7ZBih3uYA/formResponse?usp=publish-editor 
 # FIX 2: Added 'entry.' prefix to the IDs
 ENTRY_NAME = "entry.635424914"  
 ENTRY_LOC = "entry.1499233920"  
