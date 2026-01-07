@@ -54,7 +54,9 @@ st.divider()
 
 # --- 2. CURRENT STATUS DISPLAY ---
 def load_log():
+    # Force refresh to get the newest row
     df = pd.read_csv(f"{LOG_URL}&cache={pd.Timestamp.now().timestamp()}")
+    # Clean up column names (lowercase and remove spaces)
     df.columns = df.columns.str.strip().str.lower()
     return df
 
@@ -62,11 +64,19 @@ try:
     log_df = load_log()
     if not log_df.empty:
         latest = log_df.iloc[-1]
-        st.success(f"### 📍 Current Location: {latest.get('location', 'Unknown')}")
-        st.write(f"**Last parked by:** {latest.get('driver', 'Unknown')}")
+        
+        # This part looks for any column that contains the word 'loc'
+        loc_col = next((c for c in log_df.columns if 'loc' in c), None)
+        driver_col = next((c for c in log_df.columns if 'driver' in c or 'name' in c), None)
+        
+        current_loc = latest[loc_col] if loc_col else "Unknown"
+        current_driver = latest[driver_col] if driver_col else "Unknown"
+        
+        st.success(f"### 📍 Current Location: {current_loc}")
+        st.write(f"**Last parked by:** {current_driver}")
 except Exception as e:
     st.info("Waiting for location data...")
-
+    
 # --- 3. BOOKING & CALENDAR ---
 st.divider()
 st.link_button("➕ Book the Car", "https://docs.google.com/forms/d/e/1FAIpQLSeLwzlfbmjG80888ZcoDjkGF-kIQmkINQGpdr2a6ckc6KSTXA/viewform", use_container_width=True)
