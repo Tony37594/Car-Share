@@ -11,7 +11,7 @@ SHEET_ID = "1Se6lXZLpgIarI_z4OXhHXgDdruDzjDYlwEhSg9LUYI8"
 # If Log is second, but Bookings is GID 2010459593, 
 # then LOG is likely GID 0. If it still shows the wrong data, 
 # swap these two GID numbers.
-LOG_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=0"
+LOG_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=1228530864"
 BOOKING_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=2010459593"
 
 # --- GOOGLE FORM CONFIG ---
