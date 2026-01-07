@@ -132,36 +132,38 @@ except Exception as e:
 # --- 4. CANCEL BOOKING SECTION ---
 st.divider()
 with st.expander("🗑️ Cancel a Booking"):
-    # We need a fresh look at the bookings
     try:
-        cancel_df = load_bookings()
-        # Create a list of "Name on Date" for the dropdown
-        if not cancel_df.empty:
-            # Assumes Column 0 is Name and Column 1 is Start Date
-            cancel_df['display'] = cancel_df.iloc[:, 0] + " (" + cancel_df.iloc[:, 1].astype(str) + ")"
-            booking_to_delete = st.selectbox("Select booking to remove:", cancel_df['display'])
+        # Load fresh bookings
+        c_df = load_bookings()
+        if not c_df.empty:
+            # We map the columns based on your sheet structure: 
+            # 0:Timestamp, 1:Name, 2:Start Date
+            # We'll create a helper column for the dropdown
+            c_df['select_text'] = c_df.iloc[:, 1] + " starting " + c_df.iloc[:, 2].astype(str)
             
-            if st.button("Confirm Cancellation"):
-                # Get the raw name and date from the selection
-                selected_row = cancel_df[cancel_df['display'] == booking_to_delete].iloc[0]
-                target_name = selected_row.iloc[0]
-                target_date = selected_row.iloc[1]
+            choice = st.selectbox("Which booking to remove?", c_df['select_text'])
+            
+            if st.button("Confirm Cancellation", type="primary"):
+                # Get the specific data for the row we want to kill
+                row_data = c_df[c_df['select_text'] == choice].iloc[0]
+                t_name = row_data.iloc[1]
+                t_date = row_data.iloc[2]
                 
-                # YOUR APPS SCRIPT URL HERE
-                DELETE_SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE"
+                # Replace with your NEW Deployment URL
+                DELETE_URL = "PASTE_YOUR_NEW_APPS_SCRIPT_URL_HERE"
                 
-                params = {"name": target_name, "date": target_date}
-                res = requests.get(DELETE_SCRIPT_URL, params=params)
+                # Send the request to the script
+                r = requests.get(DELETE_URL, params={"name": t_name, "date": t_date})
                 
-                if res.text == "Success":
-                    st.success("Deleted! Refreshing...")
+                if "Success" in r.text:
+                    st.success("Booking removed!")
                     st.rerun()
                 else:
-                    st.error("Could not find that booking in the sheet.")
+                    st.error(f"Could not delete: {r.text}")
         else:
-            st.write("No bookings to cancel.")
-    except:
-        st.write("Could not load bookings for cancellation.")
+            st.write("No active bookings found.")
+    except Exception as e:
+        st.write("Click 'Refresh' to load cancellation list.")
         
 # FIX 3: Removed on_click=st.rerun and used a simple if-statement
 if st.button('🔄 Refresh Dashboard', use_container_width=True):
