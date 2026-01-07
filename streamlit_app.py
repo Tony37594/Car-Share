@@ -118,7 +118,49 @@ try:
                         "end": ed.strftime('%Y-%m-%d')
                     })
                 except: continue
+try:
+    book_df = load_bookings()
+    calendar_events = []
+    
+    # --- COLOR MAPPING ---
+    # Customize these names and colors! 
+    # Hex codes: #E91E63 (Pink), #9C27B0 (Purple), #2196F3 (Blue), #4CAF50 (Green), #FF9800 (Orange)
+    color_map = {
+        "Name1": "#2196F3", 
+        "Name2": "#4CAF50",
+        "Name3": "#FF9800",
+        "Name4": "#E91E63"
+    }
+
+    cols = {col.lower().strip(): col for col in book_df.columns}
+    name_key = next((v for k, v in cols.items() if 'name' in k), None)
+    start_key = next((v for k, v in cols.items() if 'start' in k), None)
+    end_key = next((v for k, v in cols.items() if 'end' in k), None)
+
+    if name_key and start_key and end_key:
+        for _, row in book_df.iterrows():
+            if pd.notnull(row[name_key]) and pd.notnull(row[start_key]):
+                try:
+                    sd = pd.to_datetime(row[start_key], dayfirst=True)
+                    ed = pd.to_datetime(row[end_key], dayfirst=True)
+                    if sd == ed: ed = ed + pd.Timedelta(days=1)
+                    
+                    # Look up driver name, default to Grey (#607D8B) if not in our map
+                    driver_name = str(row[name_key]).strip()
+                    event_color = color_map.get(driver_name, "#607D8B")
+
+                    calendar_events.append({
+                        "title": f"🚗 {driver_name}", 
+                        "start": sd.strftime('%Y-%m-%d'), 
+                        "end": ed.strftime('%Y-%m-%d'),
+                        "backgroundColor": event_color,
+                        "borderColor": event_color,
+                        "textColor": "white"
+                    })
+                except: continue
         
+        
+        })
         calendar(events=calendar_events, options={
             "headerToolbar": {"left": "prev,next", "center": "title", "right": ""},
             "initialView": "dayGridMonth", 
