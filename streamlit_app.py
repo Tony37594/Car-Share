@@ -11,9 +11,9 @@ LOG_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&
 BOOKING_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&sheet=bookings"
 
 # --- GOOGLE FORM CONFIG (UPDATE THESE WITH YOUR NUMBERS) ---
-FORM_URL = "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/formResponse"
-ENTRY_NAME = "entry.123456"  # Replace with your ID
-ENTRY_LOC = "entry.789101"   # Replace with your ID
+FORM_URL = "https://docs.google.com/forms/d/1DS4jMA5_mRoNExH6CpsdWswTZ_XaE_ynzUwfiU7Km6M/edit"
+ENTRY_NAME = "635424914"  # Replace with your ID
+ENTRY_LOC = "1499233920"   # Replace with your ID
 
 st.title("🚗 Auckland Car Share")
 
