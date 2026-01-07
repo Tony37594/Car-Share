@@ -150,8 +150,7 @@ with st.expander("🗑️ Cancel a Booking"):
                 t_date = row_data.iloc[2]
                 
                 # Replace with your NEW Deployment URL
-                DELETE_URL = "PASTE_YOUR_NEW_APPS_SCRIPT_URL_HERE"
-                
+                DELETE_URL = "https://script.google.com/macros/s/AKfycbzUSjCof2QDW0xZ5qL-XbGyPy0tjUBxVKHnD-bqve0ucKYzAvUCBL6iLWzOspPG93vBWg/exec"                
                 # Send the request to the script
                 r = requests.get(DELETE_URL, params={"name": t_name, "date": t_date})
                 
