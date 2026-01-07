@@ -7,8 +7,19 @@ st.set_page_config(page_title="AKL Car Share", page_icon="🚗")
 
 # --- CONFIG ---
 SHEET_ID = "1Se6lXZLpgIarI_z4OXhHXgDdruDzjDYlwEhSg9LUYI8"
-LOG_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=2010459593"
-BOOKING_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&sheet=bookings"
+
+# If Log is second, but Bookings is GID 2010459593, 
+# then LOG is likely GID 0. If it still shows the wrong data, 
+# swap these two GID numbers.
+LOG_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=0"
+BOOKING_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=2010459593"
+
+# --- GOOGLE FORM CONFIG ---
+# I have fixed the URL below to point to 'formResponse' instead of 'viewform'
+FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScnZpz2nSmLWwjdxfGKruOJ2oOVlr9SZ-KOa6H0P7ZBih3uYA/formResponse"
+
+ENTRY_NAME = "entry.635424914"  
+ENTRY_LOC = "entry.1499233920"
 
 # --- GOOGLE FORM CONFIG ---
 # FIX 1: Ensure URL ends in /formResponse for background posting
