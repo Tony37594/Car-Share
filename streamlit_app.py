@@ -6,15 +6,15 @@ st.set_page_config(page_title="AKL Car Share", page_icon="🚗")
 
 # --- CONFIG ---
 SHEET_ID = "1Se6lXZLpgIarI_z4OXhHXgDdruDzjDYlwEhSg9LUYI8"
-
-# We now need to pull from TWO different tabs
-LOG_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=0" # Assumes 'log' is the first tab
+# gid=0 is usually the first tab (log), sheet=bookings is the other
+LOG_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=0"
 BOOKING_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&sheet=bookings"
 
 st.title("🚗 Auckland Car Share")
 
 # --- 1. CURRENT STATUS SECTION ---
 def load_log():
+    # Adding timestamp to force refresh and avoid 'old' data
     df = pd.read_csv(f"{LOG_URL}&cache={pd.Timestamp.now().timestamp()}")
     df.columns = df.columns.str.strip().str.lower()
     return df
@@ -24,17 +24,18 @@ try:
     if not log_df.empty:
         latest = log_df.iloc[-1]
         
-        # Highlighting the Location and Fuel at the very top
-        st.subheader(f"📍 Currently at: {latest.get('location', 'Unknown')}")
+        # Big, clear location header
+        st.success(f"### 📍 Current Location: {latest.get('location', 'Unknown')}")
         
         col1, col2 = st.columns(2)
-        col1.metric("Fuel", f"{latest.get('fuel', 'Unknown')}%")
-        col2.metric("Last Driver", latest.get('driver', 'Unknown'))
+        col1.write(f"**Last Driver:** {latest.get('driver', 'Unknown')}")
         
-        if pd.notnull(latest.get('notes')) and str(latest.get('notes')).strip() != "":
-            st.caption(f"**Note:** {latest.get('notes')}")
+        # Check if there is a note, and display it if so
+        note = latest.get('notes')
+        if pd.notnull(note) and str(note).strip() != "":
+            st.info(f"**Note:** {note}")
 except:
-    st.warning("Update the log to see current car status.")
+    st.warning("Update the log in the Google Sheet to see current car status.")
 
 st.divider()
 
@@ -52,7 +53,7 @@ try:
     book_df = load_bookings()
     calendar_events = []
     
-    # Map columns
+    # Map columns for Calendar
     cols = {col.lower().strip(): col for col in book_df.columns}
     name_key = next((v for k, v in cols.items() if 'name' in k), None)
     start_key = next((v for k, v in cols.items() if 'start' in k), None)
@@ -75,12 +76,12 @@ try:
                 except: continue
 
         calendar_options = {
-            "headerToolbar": {"left": "prev,next", "center": "title", "right": "dayGridMonth"},
+            "headerToolbar": {"left": "prev,next", "center": "title", "right": ""},
             "initialView": "dayGridMonth",
+            "height": 450,
         }
         calendar(events=calendar_events, options=calendar_options)
 except:
     st.error("Calendar could not load.")
 
-if st.button('🔄 Refresh All Data', use_container_width=True):
-    st.rerun()
+st.button('🔄 Refresh Dashboard', on_click=st.rerun, use_container_width=True)
