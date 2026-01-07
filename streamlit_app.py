@@ -76,7 +76,7 @@ try:
         "Tony": "#2196F3", 
         "Sue": "#B66DFF",
         "Grant": "#107C10",
-        "Paid": "#D82C20"
+        "Paid": "#FFC1CB"
     }
 
     cols = {col.lower().strip(): col for col in book_df.columns}
