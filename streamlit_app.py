@@ -126,10 +126,10 @@ try:
     # Customize these names and colors! 
     # Hex codes: #E91E63 (Pink), #9C27B0 (Purple), #2196F3 (Blue), #4CAF50 (Green), #FF9800 (Orange)
     color_map = {
-        "Name1": "#2196F3", 
-        "Name2": "#4CAF50",
-        "Name3": "#FF9800",
-        "Name4": "#E91E63"
+        "Tony": "#2196F3", 
+        "Sue": "#4CAF50",
+        "Grant": "#FF9800",
+        "Paid": "#E91E63"
     }
 
     cols = {col.lower().strip(): col for col in book_df.columns}
