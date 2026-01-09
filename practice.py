@@ -42,7 +42,7 @@ st.markdown("""
     .stExpander {
         border: 1px solid #dee2e6 !important;
         border-radius: 10px !important;
-        background-color: #EB5757 !important;
+        background-color: #FFC1CB !important;
     }
 
     /* 3. The Refresh Button at the bottom */
