@@ -1,53 +1,74 @@
 import streamlit as st
+import pandas as pd
 from datetime import datetime
 
 st.set_page_config(page_title="Car Admin", page_icon="🔧")
 
-st.title("🔧 Car Maintenance & Admin")
+# --- CONFIG & LINKS ---
+SHEET_ID = "1Se6lXZLpgIarI_z4OXhHXgDdruDzjDYlwEhSg9LUYI8"
+LOG_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=1228530864"
 
-# --- CONFIG DATA ---
+# --- TARGETS (Update these manually) ---
 service_due_km = 154000
+ruc_max_km = 158000
 wof_expiry = "2026-08-26"
 rego_expiry = "2026-04-28"
-ruc_max_km = 158000  # Changed name (no spaces) and made it a number
 
-# --- CALCULATION LOGIC ---
+# --- DATA LOADING ---
+def get_latest_mileage():
+    try:
+        # Cache busting to get the freshest data
+        df = pd.read_csv(f"{LOG_URL}&cache={pd.Timestamp.now().timestamp()}")
+        df.columns = df.columns.str.strip().str.lower()
+        # Find the mileage column (usually 'mileage' or 'loc')
+        loc_col = next((c for c in df.columns if 'loc' in c or 'mile' in c), None)
+        return int(df.iloc[-1][loc_col])
+    except:
+        return 0
+
+current_km = get_latest_mileage()
 today = datetime.now().date()
 wof_dt = datetime.strptime(wof_expiry, "%Y-%m-%d").date()
 rego_dt = datetime.strptime(rego_expiry, "%Y-%m-%d").date()
 
-# Note: For Road Users, we'd eventually pull the "Current Mileage" 
-# from your main sheet. For now, let's assume a placeholder:
-current_km_placeholder = 155000 
+# --- DISPLAY ---
+st.title("🔧 Car Maintenance & Admin")
+st.metric("Current Odometer", f"{current_km:,} km")
 
-# --- DISPLAY SECTION ---
 col1, col2 = st.columns(2)
 
 with col1:
-    # WOF Display
+    # WOF Logic
     if wof_dt < today:
         st.error(f"⚠️ **WOF EXPIRED**\n\n{wof_dt.strftime('%d %b %Y')}")
     else:
         st.success(f"✅ **WOF Valid**\n\nExpires: {wof_dt.strftime('%d %b %Y')}")
 
 with col2:
-    # Rego Display
+    # Rego Logic
     if rego_dt < today:
         st.error(f"⚠️ **REGO EXPIRED**\n\n{rego_dt.strftime('%d %b %Y')}")
     else:
         st.success(f"✅ **REGO Valid**\n\nExpires: {rego_dt.strftime('%d %b %Y')}")
 
-# Add a third box for RUCs
 st.divider()
-if current_km_placeholder > ruc_max_km:
-    st.error(f"⛽ **ROAD USERS EXCEEDED!**\n\nMax: {ruc_max_km:,} km")
+
+# --- DYNAMIC WARNINGS ---
+
+# 1. Road User Charges (RUC)
+if current_km >= ruc_max_km:
+    st.error(f"🚨 **ROAD USERS EXCEEDED!**\n\nPlease buy more RUCs. Limit was {ruc_max_km:,} km.")
+elif (ruc_max_km - current_km) < 500:
+    st.warning(f"⛽ **RUC Warning:** Only {ruc_max_km - current_km} km remaining!")
 else:
-    st.info(f"🛣️ **Road Users (RUC)**\n\nCurrent limit: {ruc_max_km:,} km")
+    st.info(f"🛣️ **RUC Current:** {ruc_max_km - current_km:,} km remaining.")
 
-# Service Tracker
-st.warning(f"🔧 **Next Service Due:** {service_due_km:,} km")
+# 2. Service Logic
+if current_km >= service_due_km:
+    st.error(f"🛠️ **SERVICE OVERDUE**\n\nBook service now (Target: {service_due_km:,} km)")
+else:
+    st.info(f"📅 **Next Service:** Due in {service_due_km - current_km:,} km")
 
-# Optional: Add a place for tire pressure or oil type
-with st.expander("📝 Car Specs"):
-    st.write("**Tire Pressure:** 32 PSI (Cold)")
+with st.expander("📝 Car Specs & Notes"):
+    st.write("**Tire Pressure:** 32 PSI")
     st.write("**Oil Type:** 5W-30 Synthetic")
