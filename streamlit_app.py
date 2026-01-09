@@ -15,10 +15,6 @@ FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScnZpz2nSmLWwjdxfGKruOJ2oOV
 ENTRY_NAME = "entry.635424914"  
 ENTRY_LOC = "entry.1499233920" 
 
-st.markdown("<h1 style='text-align: center;'>🚗 Dad's Car Share</h1>", unsafe_allow_html=True)
-st.markdown("<h4 style='text-align: center;'>Parked at Flyaway 0800 77 66 99</h4>", unsafe_allow_html=True)
-
-
 st.set_page_config(page_title="AKL Car Share", page_icon="🚗")
 
 # --- CUSTOM STYLING ---
@@ -45,7 +41,7 @@ st.markdown("""
 
 # --- HEADINGS ---
 st.markdown("<h1 style='text-align: center; margin-bottom: 0px;'>🚗 Dad's Car Share</h1>", unsafe_allow_html=True)
-# This makes the Flyaway text smaller and grey
+
 st.markdown("<p style='text-align: center; color: black; font-size: 22px; margin-top: 0px;'>Parked at Flyaway 0800 77 66 99</p>", unsafe_allow_html=True)
 
 # --- 1. UPDATE MILEAGE (Revised for size) ---
