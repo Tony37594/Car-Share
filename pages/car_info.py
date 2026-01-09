@@ -10,6 +10,7 @@ st.write("Keep track of the boring but important stuff here.")
 service_due_km = 154000
 wof_expiry = "2026-08-26"
 rego_expiry = "2026-04-28"
+Road Users expiry = "158000"
 
 # --- CALCULATION LOGIC ---
 today = datetime.now().date()
@@ -38,7 +39,7 @@ with col1:
     if Road Users_dt < today:
         st.error(f"⚠️ **Road Users EXPIRED**\n\n{rego_dt.strftime('%d %b %Y')}")
     else:
-        st.success(f"✅ **RRoad Users Current**\n\nExpires: {rego_dt.strftime('%d %b %Y')}")
+        st.success(f"✅ **Road Users Current**\n\nExpires: {rego_dt.strftime('%d %b %Y')}")
 
         
         st.divider()
