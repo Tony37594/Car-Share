@@ -9,7 +9,7 @@ SHEET_ID = "1Se6lXZLpgIarI_z4OXhHXgDdruDzjDYlwEhSg9LUYI8"
 LOG_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv&gid=1228530864"
 
 # --- TARGETS (Update these manually) ---
-service_due_km = 154000
+service_due_km = 164000
 ruc_max_km = 158000
 wof_expiry = "2026-08-26"
 rego_expiry = "2026-04-28"
