@@ -8,7 +8,7 @@ st.write("Keep track of the boring but important stuff here.")
 
 # --- CONFIG DATA (Update these manually when you get things done) ---
 service_due_km = 154000
-wof_expiry = "2025-08-25"
+wof_expiry = "2026-08-26"
 rego_expiry = "2026-04-28"
 
 # --- CALCULATION LOGIC ---
@@ -33,7 +33,21 @@ with col2:
     else:
         st.success(f"✅ **REGO Valid**\n\nExpires: {rego_dt.strftime('%d %b %Y')}")
 
-st.divider()
+with col3:
+    # Rego Display
+    if rego_dt < today:
+        st.error(f"⚠️ **REGO EXPIRED**\n\n{rego_dt.strftime('%d %b %Y')}")
+    else:
+        st.success(f"✅ **REGO Valid**\n\nExpires: {rego_dt.strftime('%d %b %Y')}")
+
+with col4:
+    # Rego Display
+    if rego_dt < today:
+        st.error(f"⚠️ **REGO EXPIRED**\n\n{rego_dt.strftime('%d %b %Y')}")
+    else:
+        st.success(f"✅ **REGO Valid**\n\nExpires: {rego_dt.strftime('%d %b %Y')}")
+        
+        st.divider()
 
 # Service Tracker
 st.info(f"📅 **Next Service Due:** {service_due_km:,} km")
