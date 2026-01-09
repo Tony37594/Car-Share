@@ -20,6 +20,21 @@ ENTRY_NAME = "entry.635424914"
 ENTRY_LOC = "entry.1499233920" 
 
 # 3. CUSTOM STYLING (CSS)
+
+/* Style the Expander Header */
+    .streamlit-expanderHeader {
+        background-color: #f8f9fa !important; /* Soft grey background */
+        border: 1px solid #dee2e6 !important;
+        border-radius: 10px !important;
+        padding: 15px !important;            /* Makes it taller */
+    }
+
+    /* Style the text inside the Expander Header */
+    .streamlit-expanderHeader p {
+        font-size: 24px !important;          /* Bigger text */
+        font-weight: bold !important;
+        color: #155724 !important;           /* Dark green text */
+    }
 st.markdown("""
     <style>
     /* Targeted 'Big Button' Style */
