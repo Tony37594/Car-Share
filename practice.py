@@ -39,8 +39,8 @@ st.markdown("""
     /* Subtitle styling */
     .flyaway-text {
         text-align: center; 
-        color: #666; 
-        font-size: 18px; 
+        color: #212529; 
+        font-size: 24px; 
         margin-top: -15px; 
         margin-bottom: 20px;
     }
