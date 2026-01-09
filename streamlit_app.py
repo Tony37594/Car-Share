@@ -4,6 +4,8 @@ import requests
 from streamlit_calendar import calendar
 import time
 
+st.markdown("<h1 style='text-align: center;'>🚧 PRACTICE ZONE</h1>", unsafe_allow_html=True)
+
 # 1. PAGE SETUP
 st.set_page_config(page_title="Dad's Car Share", page_icon="🚗")
 
@@ -17,10 +19,10 @@ FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScnZpz2nSmLWwjdxfGKruOJ2oOV
 ENTRY_NAME = "entry.635424914"  
 ENTRY_LOC = "entry.1499233920" 
 
-# 3. CUSTOM STYLING (CSS)
+# --- 3. CUSTOM STYLING (CSS) ---
 st.markdown("""
     <style>
-    /* Target ONLY the Submit Button inside the Mileage Form */
+    /* 1. The Submit Button inside the Form */
     div[data-testid="stForm"] button {
         background-color: #d4edda !important; 
         color: #155724 !important;           
@@ -31,23 +33,42 @@ st.markdown("""
         font-weight: bold !important;
         font-size: 20px !important;
     }
-    div[data-testid="stForm"] button:hover {
-        background-color: #c3e6cb !important;
+
+    /* 2. The Expander Bar (The "Update Car Mileage" button) */
+    .p {
+        font-size: 24px !important;
     }
-    /* Subtitle styling */
-    .flyaway-text {
-        text-align: center; 
-        color: #002050; 
-        font-size: 22px; 
-        margin-top: -15px; 
-        margin-bottom: 20px;
+    
+    .stExpander {
+        border: 1px solid #dee2e6 !important;
+        border-radius: 10px !important;
+        background-color: #F8BCBD !important;
+    }
+
+    /* 3. The Refresh Button at the bottom */
+    div.stButton > button {
+        height: 3em !important;
+        width: 100% !important;
+        font-weight: bold !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # 4. HEADINGS
 st.markdown("<h1 style='text-align: center; margin-bottom: 0px;'>🚗 Dad's Car Share</h1>", unsafe_allow_html=True)
-st.markdown("<p class='flyaway-text'>Parked at Flyaway 0800 77 66 99</p>", unsafe_allow_html=True)
+
+# This version ignores the CSS block and forces the size/color right here:
+st.markdown("""
+    <p style='
+        text-align: center; 
+        color: #212529; 
+        font-size: 24px; 
+        font-weight: bold; 
+        margin-top: -10px;
+    '>
+        Parked at Flyaway 0800 77 66 99
+    </p>
+""", unsafe_allow_html=True)
 
 # 5. DATA LOADING FUNCTIONS
 def load_log():
@@ -66,7 +87,7 @@ with st.expander("📍 Update Car Mileage"):
     with st.form("location_form", clear_on_submit=True):
         u_name = st.text_input("Your Name")
         u_loc = st.text_input("Mileage at Dropoff")
-        submitted = st.form_submit_button("Submit New Mileage")
+        submitted = st.form_submit_button("Submit")
         
         if submitted:
             if u_name and u_loc:
@@ -145,9 +166,11 @@ try:
         calendar(events=calendar_events, options={
             "headerToolbar": {"left": "prev,next", "center": "title", "right": ""},
             "initialView": "dayGridMonth", 
-            "height": 400,
-            "firstDay": 1
-        })
+            "height": "auto",          # 1. Changed from 400 to 'auto'
+            "aspectRatio": 0.8,        # 2. Helps it look taller on mobile phones
+            "firstDay": 1,
+            "handleWindowResize": True # 3. Forces it to re-fit if you rotate the phone
+         })
 except Exception as e:
     st.error(f"Calendar Error: {e}")
 
@@ -177,7 +200,6 @@ with st.expander("🗑️ Cancel a Booking"):
                     st.error(f"Could not delete: {r.text}")
     except:
         st.write("Could not load cancellation list.")
-
 # 10. REFRESH BUTTON
 if st.button('🔄 Refresh Dashboard', use_container_width=True):
     st.rerun()
