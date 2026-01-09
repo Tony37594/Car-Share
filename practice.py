@@ -22,27 +22,21 @@ ENTRY_LOC = "entry.1499233920"
 # 3. CUSTOM STYLING (CSS)
 st.markdown("""
     <style>
-    /* Target ONLY the Submit Button inside the Mileage Form */
+    /* Targeted 'Big Button' Style */
     div[data-testid="stForm"] button {
         background-color: #d4edda !important; 
         color: #155724 !important;           
         border: 2px solid #c3e6cb !important; 
-        border-radius: 10px !important;
-        height: 3.5em !important;
-        width: 100% !important;
-        font-weight: bold !important;
-        font-size: 20px !important;
-    }
-    div[data-testid="stForm"] button:hover {
-        background-color: #c3e6cb !important;
-    }
-    /* Subtitle styling */
-    .flyaway-text {
-        text-align: center; 
-        color: #212529; 
-        font-size: 50px; 
-        margin-top: -15px; 
-        margin-bottom: 20px;
+        border-radius: 15px !important;      /* More rounded corners */
+        
+        /* SIZE CONTROLS */
+        height: 4.0em !important;            /* Vertical thickness */
+        width: 100% !important;              /* Stretch across the screen */
+        font-size: 24px !important;          /* Text size */
+        font-weight: 900 !important;         /* Extra Thick Text */
+        
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
     }
     </style>
 """, unsafe_allow_html=True)
