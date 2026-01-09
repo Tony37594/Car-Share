@@ -16,6 +16,7 @@ ENTRY_NAME = "entry.635424914"
 ENTRY_LOC = "entry.1499233920" 
 
 st.title("🚗 Dad's Car Share")
+st.title("Parked at Flyaway")
 
 # --- 1. UPDATE LOCATION ---
 with st.expander("📍 Update Car Mileage"):
