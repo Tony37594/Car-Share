@@ -29,11 +29,11 @@ ENTRY_LOC = "entry.1499233920"
         padding: 15px !important;            /* Makes it taller */
     }
 
-    /* Style the text inside the Expander Header */
+   { /* Style the text inside the Expander Header */
     .streamlit-expanderHeader p {
         font-size: 24px !important;          /* Bigger text */
         font-weight: bold !important;
-        color: #155724 !important;           /* Dark green text */
+        color: #155724 !important;           /* Dark green text */}
     
 st.markdown("""
     <style>
