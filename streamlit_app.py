@@ -16,30 +16,31 @@ ENTRY_NAME = "entry.635424914"
 ENTRY_LOC = "entry.1499233920" 
 
 st.markdown("<h1 style='text-align: center;'>🚗 Dad's Car Share</h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center;'>Parked at Flyaway 0800 77 66 99</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Parked at Flyaway 0800 77 66 99</h3>", unsafe_allow_html=True)
 
-# --- 1. UPDATE LOCATION ---
+# --- 1. UPDATE MILEAGE (Revised for size) ---
 with st.expander("📍 Update Car Mileage"):
     with st.form("location_form", clear_on_submit=True):
         u_name = st.text_input("Your Name")
         u_loc = st.text_input("Mileage at Dropoff")
+        
+        # We use a standard submit button, but our CSS above will 'catch' it
         submitted = st.form_submit_button("Submit New Mileage")
         
         if submitted:
+            # ... (your existing logic for payload and requests) ...
             if u_name and u_loc:
                 payload = {ENTRY_NAME: u_name, ENTRY_LOC: u_loc}
                 try:
                     response = requests.post(FORM_URL, data=payload, timeout=5)
                     if response.status_code == 200:
-                        st.success("✅ Mileaga updated! Loading...")
-                        time.sleep(1) 
+                        st.success("✅ Mileage updated!")
+                        time.sleep(1)
                         st.rerun()
                 except:
                     st.success("✅ Update sent!")
                     st.rerun()
-            else:
-                st.warning("Please fill in both fields.")
-
+                    
 # --- 2. CURRENT STATUS DISPLAY ---
 def load_log():
     df = pd.read_csv(f"{LOG_URL}&cache={pd.Timestamp.now().timestamp()}")
