@@ -40,7 +40,7 @@ st.markdown("""
     .flyaway-text {
         text-align: center; 
         color: #212529; 
-        font-size: 30px; 
+        font-size: 50px; 
         margin-top: -15px; 
         margin-bottom: 20px;
     }
