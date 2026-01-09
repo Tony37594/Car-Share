@@ -8,7 +8,7 @@ st.write("Keep track of the boring but important stuff here.")
 
 # --- CONFIG DATA (Update these manually when you get things done) ---
 service_due_km = 154000
-wof_expiry = "2026-08-25"
+wof_expiry = "2025-08-25"
 rego_expiry = "2026-04-28"
 
 # --- CALCULATION LOGIC ---
