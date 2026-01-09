@@ -18,6 +18,28 @@ ENTRY_LOC = "entry.1499233920"
 st.markdown("<h1 style='text-align: center;'>🚗 Dad's Car Share</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>Parked at Flyaway 0800 77 66 99</h3>", unsafe_allow_html=True)
 
+# --- CUSTOM STYLING (Add this right after your st.set_page_config) ---
+st.markdown("""
+    <style>
+    /* Make the Submit Button look like the Success Box */
+    div.stButton > button:first-child {
+        background-color: #d4edda; /* Light green background */
+        color: #155724;           /* Dark green text */
+        border: 2px solid #c3e6cb; /* Success-style border */
+        border-radius: 10px;
+        height: 3em;
+        width: 100%;
+        font-weight: bold;
+        font-size: 20px !format;   /* Slightly bigger text */
+    }
+    /* Hover effect for the button */
+    div.stButton > button:first-child:hover {
+        background-color: #c3e6cb;
+        border-color: #b1dfbb;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # --- 1. UPDATE MILEAGE (Revised for size) ---
 with st.expander("📍 Update Car Mileage"):
     with st.form("location_form", clear_on_submit=True):
