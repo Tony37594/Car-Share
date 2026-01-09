@@ -54,8 +54,8 @@ st.markdown("<h1 style='text-align: center; margin-bottom: 0px;'>🚗 Dad's Car 
 st.markdown("""
     <p style='
         text-align: center; 
-        color: #000000; 
-        font-size: 40px; 
+        color: #212529; 
+        font-size: 24px; 
         font-weight: bold; 
         margin-top: -10px;
     '>
