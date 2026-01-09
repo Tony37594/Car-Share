@@ -83,7 +83,7 @@ def load_bookings():
     return df
 
 # 6. SECTION 1: UPDATE MILEAGE
-with st.expander("📍 Update Car Mileage"):
+with st.expander("⏲️ Update Car Mileage"):
     with st.form("location_form", clear_on_submit=True):
         u_name = st.text_input("Your Name")
         u_loc = st.text_input("Mileage at Dropoff")
@@ -117,7 +117,7 @@ try:
         current_driver = latest[driver_col] if driver_col else "Unknown"
         
         # Displaying the box with the mileage
-        st.success(f"📍 **Current Mileage:** {current_loc}")
+        st.success(f"⏲️ **Current Mileage:** {current_loc}")
         st.write(f"**Last parked by:** {current_driver}")
 except Exception as e:
     st.info("Waiting for data...")
