@@ -166,9 +166,11 @@ try:
         calendar(events=calendar_events, options={
             "headerToolbar": {"left": "prev,next", "center": "title", "right": ""},
             "initialView": "dayGridMonth", 
-            "height": 400,
-            "firstDay": 1
-        })
+            "height": "auto",          # 1. Changed from 400 to 'auto'
+            "aspectRatio": 0.8,        # 2. Helps it look taller on mobile phones
+            "firstDay": 1,
+            "handleWindowResize": True # 3. Forces it to re-fit if you rotate the phone
+         })
 except Exception as e:
     st.error(f"Calendar Error: {e}")
 
