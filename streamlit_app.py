@@ -18,7 +18,7 @@ ENTRY_LOC = "entry.1499233920"
 st.title("🚗 Dad's Car Share")
 
 # --- 1. UPDATE LOCATION ---
-with st.expander("📍 Update Car Location"):
+with st.expander("📍 Update Car Mileage"):
     with st.form("location_form", clear_on_submit=True):
         u_name = st.text_input("Your Name")
         u_loc = st.text_input("New Location (e.g. Row 4A)")
