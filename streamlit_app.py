@@ -46,7 +46,7 @@ st.markdown("""
 # --- HEADINGS ---
 st.markdown("<h1 style='text-align: center; margin-bottom: 0px;'>🚗 Dad's Car Share</h1>", unsafe_allow_html=True)
 # This makes the Flyaway text smaller and grey
-st.markdown("<p style='text-align: center; color: gray; font-size: 22px; margin-top: 0px;'>Parked at Flyaway 0800 77 66 99</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: black; font-size: 22px; margin-top: 0px;'>Parked at Flyaway 0800 77 66 99</p>", unsafe_allow_html=True)
 
 # --- 1. UPDATE MILEAGE (Revised for size) ---
 with st.expander("📍 Update Car Mileage"):
