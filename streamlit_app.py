@@ -38,7 +38,7 @@ st.markdown("""
     .flyaway-text {
         text-align: center; 
         color: #666; 
-        font-size: 18px; 
+        font-size: 22px; 
         margin-top: -15px; 
         margin-bottom: 20px;
     }
