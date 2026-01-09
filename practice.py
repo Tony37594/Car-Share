@@ -80,7 +80,7 @@ with st.expander("📍 Update Car Mileage"):
     with st.form("location_form", clear_on_submit=True):
         u_name = st.text_input("Your Name")
         u_loc = st.text_input("Mileage at Dropoff")
-        submitted = st.form_submit_button("Submit New Mileage")
+        submitted = st.form_submit_button("Submit")
         
         if submitted:
             if u_name and u_loc:
