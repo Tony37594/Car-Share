@@ -19,39 +19,37 @@ FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScnZpz2nSmLWwjdxfGKruOJ2oOV
 ENTRY_NAME = "entry.635424914"  
 ENTRY_LOC = "entry.1499233920" 
 
-# 3. CUSTOM STYLING (CSS)
-
-/* Style the Expander Header */
-    .streamlit-expanderHeader {
-        background-color: #f8f9fa !important; /* Soft grey background */
-        border: 1px solid #dee2e6 !important;
-        border-radius: 10px !important;
-        padding: 15px !important;            /* Makes it taller */
-    }
-
-   { /* Style the text inside the Expander Header */
-    .streamlit-expanderHeader p {
-        font-size: 24px !important;          /* Bigger text */
-        font-weight: bold !important;
-        color: #155724 !important;           /* Dark green text */}
-    
+# --- 3. CUSTOM STYLING (CSS) ---
 st.markdown("""
     <style>
-    /* Targeted 'Big Button' Style */
+    /* 1. The Submit Button inside the Form */
     div[data-testid="stForm"] button {
-        background-color: #FEB5DA !important; 
+        background-color: #d4edda !important; 
         color: #155724 !important;           
-        border: 2px solid #FEB5DA !important; 
-        border-radius: 10px !important;      /* More rounded corners */
-        
-        /* SIZE CONTROLS */
-        height: 3.0em !important;            /* Vertical thickness */
-        width: 100% !important;              /* Stretch across the screen */
-        font-size: 24px !important;          /* Text size */
-        font-weight: 900 !important;         /* Extra Thick Text */
-        
-        margin-top: 10px !important;
-        margin-bottom: 10px !important;
+        border: 2px solid #c3e6cb !important; 
+        border-radius: 10px !important;
+        height: 3.5em !important;
+        width: 100% !important;
+        font-weight: bold !important;
+        font-size: 20px !important;
+    }
+
+    /* 2. The Expander Bar (The "Update Car Mileage" button) */
+    .p {
+        font-size: 24px !important;
+    }
+    
+    .stExpander {
+        border: 1px solid #dee2e6 !important;
+        border-radius: 10px !important;
+        background-color: #f8f9fa !important;
+    }
+
+    /* 3. The Refresh Button at the bottom */
+    div.stButton > button {
+        height: 3em !important;
+        width: 100% !important;
+        font-weight: bold !important;
     }
     </style>
 """, unsafe_allow_html=True)
