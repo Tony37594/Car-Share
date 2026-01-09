@@ -31,7 +31,7 @@ with st.expander("📍 Update Car Mileage"):
                 try:
                     response = requests.post(FORM_URL, data=payload, timeout=5)
                     if response.status_code == 200:
-                        st.success("✅ Location updated! Loading...")
+                        st.success("✅ Mileaga updated! Loading...")
                         time.sleep(1) 
                         st.rerun()
                 except:
@@ -54,7 +54,7 @@ try:
         driver_col = next((c for c in log_df.columns if 'driver' in c or 'name' in c), None)
         current_loc = latest[loc_col] if loc_col else "Unknown"
         current_driver = latest[driver_col] if driver_col else "Unknown"
-        st.success(f"### 📍Location: {current_loc}")
+        st.success(f"### 📍Mileage: {current_loc}")
         st.write(f"**Last parked by:** {current_driver}")
 except Exception as e:
     st.info("Waiting for location data...")
