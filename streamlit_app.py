@@ -18,27 +18,42 @@ ENTRY_LOC = "entry.1499233920"
 st.markdown("<h1 style='text-align: center;'>🚗 Dad's Car Share</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>Parked at Flyaway 0800 77 66 99</h3>", unsafe_allow_html=True)
 
-# --- CUSTOM STYLING (Add this right after your st.set_page_config) ---
+import streamlit as st
+import pandas as pd
+import requests
+from streamlit_calendar import calendar
+import time
+
+st.set_page_config(page_title="AKL Car Share", page_icon="🚗")
+
+# --- CUSTOM STYLING ---
 st.markdown("""
     <style>
-    /* Make the Submit Button look like the Success Box */
+    /* Target only the Submit Button inside the form */
     div.stButton > button:first-child {
-        background-color: #d4edda; /* Light green background */
-        color: #155724;           /* Dark green text */
-        border: 2px solid #c3e6cb; /* Success-style border */
-        border-radius: 10px;
-        height: 3em;
-        width: 100%;
-        font-weight: bold;
-        font-size: 20px !format;   /* Slightly bigger text */
+        background-color: #d4edda !important; /* Light green background */
+        color: #155724 !important;           /* Dark green text */
+        border: 2px solid #c3e6cb !important; /* Success-style border */
+        border-radius: 10px !important;
+        height: 3.5em !important;             /* Makes it slightly bigger */
+        width: 100% !important;
+        font-weight: bold !important;
+        font-size: 20px !important;           /* FIXED: changed !format to !important */
     }
-    /* Hover effect for the button */
+    /* Hover effect */
     div.stButton > button:first-child:hover {
-        background-color: #c3e6cb;
-        border-color: #b1dfbb;
+        background-color: #c3e6cb !important;
+        border-color: #b1dfbb !important;
     }
     </style>
 """, unsafe_allow_html=True)
+
+# --- HEADINGS ---
+st.markdown("<h1 style='text-align: center; margin-bottom: 0px;'>🚗 Dad's Car Share</h1>", unsafe_allow_html=True)
+# This makes the Flyaway text smaller and grey
+st.markdown("<p style='text-align: center; color: gray; font-size: 16px; margin-top: 0px;'>Parked at Flyaway 0800 77 66 99</p>", unsafe_allow_html=True)
+
+# ... [The rest of your code stays the same] ...
 
 # --- 1. UPDATE MILEAGE (Revised for size) ---
 with st.expander("📍 Update Car Mileage"):
