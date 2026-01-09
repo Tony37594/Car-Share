@@ -49,7 +49,19 @@ st.markdown("""
 
 # 4. HEADINGS
 st.markdown("<h1 style='text-align: center; margin-bottom: 0px;'>🚗 Dad's Car Share</h1>", unsafe_allow_html=True)
-st.markdown("<p class='flyaway-text'>Parked at Flyaway 0800 77 66 99</p>", unsafe_allow_html=True)
+
+# This version ignores the CSS block and forces the size/color right here:
+st.markdown("""
+    <p style='
+        text-align: center; 
+        color: #000000; 
+        font-size: 40px; 
+        font-weight: bold; 
+        margin-top: -10px;
+    '>
+        Parked at Flyaway 0800 77 66 99
+    </p>
+""", unsafe_allow_html=True)
 
 # 5. DATA LOADING FUNCTIONS
 def load_log():
