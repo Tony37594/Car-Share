@@ -37,7 +37,7 @@ st.markdown("""
     /* Subtitle styling */
     .flyaway-text {
         text-align: center; 
-        color: #666; 
+        color: #002050; 
         font-size: 22px; 
         margin-top: -15px; 
         margin-bottom: 20px;
