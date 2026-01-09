@@ -26,7 +26,7 @@ st.markdown("""
     div[data-testid="stForm"] button {
         background-color: #FEB5DA !important; 
         color: #155724 !important;           
-        border: 2px solid #c3e6cb !important; 
+        border: 2px solid #FEB5DA !important; 
         border-radius: 10px !important;      /* More rounded corners */
         
         /* SIZE CONTROLS */
