@@ -4,6 +4,8 @@ import requests
 from streamlit_calendar import calendar
 import time
 
+st.markdown("<h1 style='text-align: center;'>🚧 DAD'S PRACTICE ZONE</h1>", unsafe_allow_html=True)
+
 # 1. PAGE SETUP
 st.set_page_config(page_title="Dad's Car Share", page_icon="🚗")
 
