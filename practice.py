@@ -34,7 +34,7 @@ ENTRY_LOC = "entry.1499233920"
         font-size: 24px !important;          /* Bigger text */
         font-weight: bold !important;
         color: #155724 !important;           /* Dark green text */
-    }
+    
 st.markdown("""
     <style>
     /* Targeted 'Big Button' Style */
