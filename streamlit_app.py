@@ -115,7 +115,7 @@ try:
         current_driver = latest[driver_col] if driver_col else "Unknown"
         
         # Displaying the box with the mileage
-        st.success(f"⏲️ **Current Mileage:** {current_loc}")
+        st.success(f" **Current Mileage:** {current_loc}")
         st.write(f"**Last parked by:** {current_driver}")
 except Exception as e:
     st.info("Waiting for data...")
