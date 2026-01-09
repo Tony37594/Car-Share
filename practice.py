@@ -148,7 +148,7 @@ try:
                 try:
                     sd = pd.to_datetime(row[start_key], dayfirst=True)
                     ed = pd.to_datetime(row[end_key], dayfirst=True)
-                    if sd == ed: ed = ed + pd.Timedelta(days=1)  
+                    if sd == ed: ed = ed + pd.Timedelta(days=2)  
                         
                     driver_name = str(row[name_key]).strip()
                     event_color = color_map.get(driver_name, "#607D8B")
