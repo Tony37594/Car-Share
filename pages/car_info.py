@@ -34,18 +34,12 @@ with col2:
         st.success(f"✅ **REGO Valid**\n\nExpires: {rego_dt.strftime('%d %b %Y')}")
 
 with col3:
-    # Rego Display
+    # Road Users Display
     if rego_dt < today:
         st.error(f"⚠️ **REGO EXPIRED**\n\n{rego_dt.strftime('%d %b %Y')}")
     else:
         st.success(f"✅ **REGO Valid**\n\nExpires: {rego_dt.strftime('%d %b %Y')}")
 
-with col4:
-    # Rego Display
-    if rego_dt < today:
-        st.error(f"⚠️ **REGO EXPIRED**\n\n{rego_dt.strftime('%d %b %Y')}")
-    else:
-        st.success(f"✅ **REGO Valid**\n\nExpires: {rego_dt.strftime('%d %b %Y')}")
         
         st.divider()
 
@@ -56,4 +50,4 @@ st.info(f"📅 **Next Service Due:** {service_due_km:,} km")
 with st.expander("📝 Car Specs"):
     st.write("**Tire Pressure:** 32 PSI (Cold)")
     st.write("**Oil Type:** 5W-30 Synthetic")
-    st.write("**Battery Type:** 12V 45Ah")
+    
