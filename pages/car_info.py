@@ -33,7 +33,7 @@ with col2:
     else:
         st.success(f"✅ **REGO Valid**\n\nExpires: {rego_dt.strftime('%d %b %Y')}")
 
-with col3:
+with col2:
     # Road Users Display
     if rego_dt < today:
         st.error(f"⚠️ **REGO EXPIRED**\n\n{rego_dt.strftime('%d %b %Y')}")
