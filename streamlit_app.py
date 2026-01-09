@@ -53,7 +53,7 @@ try:
         driver_col = next((c for c in log_df.columns if 'driver' in c or 'name' in c), None)
         current_loc = latest[loc_col] if loc_col else "Unknown"
         current_driver = latest[driver_col] if driver_col else "Unknown"
-        st.success(f"### 📍 Current Location: {current_loc}")
+        st.success(f"### 📍Location: {current_loc}")
         st.write(f"**Last parked by:** {current_driver}")
 except Exception as e:
     st.info("Waiting for location data...")
