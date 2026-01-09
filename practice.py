@@ -27,10 +27,10 @@ st.markdown("""
         background-color: #d4edda !important; 
         color: #155724 !important;           
         border: 2px solid #c3e6cb !important; 
-        border-radius: 15px !important;      /* More rounded corners */
+        border-radius: 10px !important;      /* More rounded corners */
         
         /* SIZE CONTROLS */
-        height: 4.0em !important;            /* Vertical thickness */
+        height: 3.0em !important;            /* Vertical thickness */
         width: 100% !important;              /* Stretch across the screen */
         font-size: 24px !important;          /* Text size */
         font-weight: 900 !important;         /* Extra Thick Text */
