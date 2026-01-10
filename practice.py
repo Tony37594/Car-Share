@@ -70,7 +70,7 @@ st.markdown("""
     </p>
 """, unsafe_allow_html=True)
 st.markdown("""
-    <p style='text-align: center; color: #212529; font-size: 24px; font-weight: bold; margin-top: -10px;'>
+    <p style='text-align: center; color: #374649; font-size: 18px; font-weight: bold; margin-top: -10px;'>
         Grant Shepherd 02-0692-0094940-003
     </p>
 """, unsafe_allow_html=True)
