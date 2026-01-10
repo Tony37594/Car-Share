@@ -71,7 +71,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 st.markdown("""
     <p style='text-align: center; color: #212529; font-size: 24px; font-weight: bold; margin-top: -10px;'>
-        Parked at Flyaway 0800 77 66 99
+        Grant Shepherd 02-0692-0094940-003
     </p>
 """, unsafe_allow_html=True)
 
