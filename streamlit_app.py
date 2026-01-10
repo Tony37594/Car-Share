@@ -69,6 +69,11 @@ st.markdown("""
         Parked at Flyaway 0800 77 66 99
     </p>
 """, unsafe_allow_html=True)
+st.markdown("""
+    <p style='text-align: center; color: #374649; font-size: 18px; font-weight: bold; margin-top: -10px;'>
+        Grant Shepherd 02-0692-0094940-003
+    </p>
+""", unsafe_allow_html=True)
 
 # 5. DATA LOADING FUNCTIONS
 def load_log():
@@ -191,3 +196,7 @@ with st.expander("🗑️ Cancel a Booking"):
                     st.rerun()
     except:
         st.write("Could not load cancellation list.")
+
+# 10. REFRESH BUTTON
+if st.button('🔄 Refresh Dashboard', use_container_width=True):
+    st.rerun()
