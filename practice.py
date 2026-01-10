@@ -151,17 +151,17 @@ try:
                     if sd == ed: ed = ed + pd.Timedelta(days=2)  
                         
                     driver_name = str(row[name_key]).strip()
-                    event_color = color_map.get(driver_name, "#607D8B")
+            event_color = color_map.get(driver_name, "#607D8B")
 
-                    calendar_events.append({
-                        "title": f"🚗 {driver_name}", 
-                        "start": sd.strftime('%Y-%m-%d'), 
-                        "end": ed.strftime('%Y-%m-%d'),
-                        "backgroundColor": event_color,
-                        "borderColor": event_color,
-                        "textColor": "white"
-                    })
-                except: continue
+            calendar_events.append({
+                "title": f"🚗 {driver_name}", 
+                "start": sd.strftime('%Y-%m-%d'), 
+                "end": ed.strftime('%Y-%m-%d'),
+                "backgroundColor": event_color,
+                "borderColor": event_color,
+                "textColor": "white"
+            })
+        except: continue
         
         calendar(events=calendar_events, options={
             "headerToolbar": {"left": "prev,next", "center": "title", "right": ""},
